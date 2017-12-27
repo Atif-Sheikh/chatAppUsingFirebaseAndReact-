@@ -1,0 +1,25 @@
+
+.App{
+  width: 400;
+  height: 400;
+}
+.wrap{
+    width: 500px;
+    height: 400px;
+    margin: 0 auto;
+    margin-top: 100px;  
+    padding: 10px;
+}
+.formComponent{
+  width: 200px;
+  height: 300px;
+  margin: 0 auto;  
+}
+.heading{
+  width: 300px;
+  margin: 0 auto;
+}
+.signupForm{
+  width: 500px;
+  margin: 0 auto;
+}
