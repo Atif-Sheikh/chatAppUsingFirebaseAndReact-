@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 class SignupForm extends Component{
   constructor(){
     super();
-    this.db = firebase.database().ref().child('users');
+    this.db = firebase.database().ref().child('Users');
     this.state = {
       displayName: '',
       email: '',
@@ -55,7 +55,10 @@ class SignupForm extends Component{
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((e) => {
           console.log('then', e.uid);
-          this.db.push({ displayName: displayName, email: email});
+          firebase.database().ref(`Users/${e.uid}`).set({
+            displayName: displayName, email: email
+          })
+          // this.db.set({ displayName: displayName, email: email});
           this.props.history.push('/home');
           this.setState({
             loading: false,

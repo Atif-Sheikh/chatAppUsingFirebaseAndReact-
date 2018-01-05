@@ -50,7 +50,7 @@ class Form extends Component {
       this.props.history.push('/home');
       })
       .catch((e) => {
-        console.log('OnbuttonPress',e)
+        // console.log('OnbuttonPress',e)
         this.setState({
           email: '', 
           password: '', 
