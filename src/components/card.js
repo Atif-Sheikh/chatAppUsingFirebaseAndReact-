@@ -42,12 +42,7 @@ class Card extends Component{
         this.setState({currentMessage: e.target.value});
     };
     ScrollDiv(){
-        if(document.querySelector('.card-body').scrollTop<(document.querySelector('.card-body').scrollHeight-document.querySelector('.card-body').offsetHeight)){-1
-              document.querySelector('.card-body').scrollTop=document.querySelector('.card-body').scrollTop+1
-                console.log('if');  
-            }
-        else {document.querySelector('.card-body').scrollTop=0; console.log('else')};
-        console.log('scroll');
+              document.querySelector('#cardBody').scrollTop = 9999999999
      };     
     onButtonPress(e){
         e.preventDefault();
@@ -58,27 +53,26 @@ class Card extends Component{
                 firebase.database().ref(`Users/${recieverKey}/`).child(senderKey).push({currentMessage, signInUserEmail});
             }       
             this.setState({
-                currentMessage: ''
+                currentMessage: '',
             });
-            this.ScrollDiv();
     };
     render(){
         return(
                 <div className="card" style={{width: "300px", height: '370px', float: 'right'}}>
                     <header style={{width: '100%', height: '30px', marginTop: '-5px', borderTopLeftRadius:'5px', borderTopRightRadius:'5px', textAlign: 'center', fontSize: '25px', background: 'rgb(37, 116, 169)'}}>{ this.state.currentUserName }</header>
-                    <div style={{flex: '1', background: 'skyblue', overflowY: 'auto'}} className='card-body'>
+                    <div style={{flex: '1', background: 'skyblue', overflowY: 'auto'}} id='cardBody' className='card-body'>
                         <div style={{width: '100%'}}>
                             {
                             this.state.messages.map((msg,index)=>{
-                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', padding: '5px', width: '120px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
-                                : <p key={index} style={{color: 'white' , float: 'left', borderRadius: '5px', padding: '5px', width: '120px', background: 'rgba(0,0,0,0.5)'}}>{ msg.currentMessage }</p>
+                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', padding: '5px', width: '130px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
+                                : <p key={index} style={{color: 'white' , float: 'left', borderRadius: '5px', padding: '5px', width: '130px', background: 'rgba(0,0,0,0.5)'}}>{ msg.currentMessage }</p>
                             })
                         }
                         </div>
                     </div>
                     <div className='card-text' style={{background: 'rgba(0,0,0,0.1)'}}>
                         <form onSubmit={this.onButtonPress}>
-                        <input type='text' value={this.state.currentMessage} onChange={this.onChangeMessage} style={{width: '70%', height: '38px', background: 'rgba(0,0,0,0.3)', borderRadius: '5px'}} className='form-control"' placeholder='Enter Your Message...' />
+                        <input type='text' value={this.state.currentMessage} onKeyUp={this.ScrollDiv} onMouseOver={this.ScrollDiv} onChange={this.onChangeMessage} style={{width: '70%', height: '38px', background: 'rgba(0,0,0,0.3)', borderRadius: '5px'}} className='form-control"' placeholder='Enter Your Message...' />
                         <button style={{width: '30%', marginTop: '-5px', marginLeft: '-5px'}} type='submit' className='btn btn-primary'>Send.</button>
                         </form>
                     </div>
