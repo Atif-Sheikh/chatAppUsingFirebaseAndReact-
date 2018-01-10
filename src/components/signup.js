@@ -25,7 +25,7 @@ class SignupForm extends Component{
   //   });
   // };
   onChangeEmail(e){
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       email: e.target.value,
       error: '',
@@ -38,7 +38,7 @@ class SignupForm extends Component{
     });
   };
   onChangePassword(e){
-    console.log(e.target.value);    
+    // console.log(e.target.value);    
     this.setState({
       password: e.target.value,
       error: '',      
@@ -81,9 +81,9 @@ class SignupForm extends Component{
   };
   render(){
     return(
-      <Paper className='wrap' zDepth={4} rounded={false}>  
+      <Paper style={{width: '350px', paddingLeft: '50px'}} className='wrap' zDepth={4} rounded={false}>  
       <div className='signupForm'>
-        <h1>Signup</h1>
+        <h1 style={{marginLeft: '50px'}}>Signup</h1>
         <form onSubmit={this.onButtonPress.bind(this)}>
             <TextField
             hintText="Enter name"
@@ -108,7 +108,7 @@ class SignupForm extends Component{
               color={'#123abc'}
               size={20} 
               loading={this.state.loading} 
-            /> : <RaisedButton label="Submit" type='submit' primary={true} style={{margin: '10'}} /> 
+            /> : <RaisedButton label="Submit" type='submit' primary={true} style={{margin: '10px', marginLeft: '50px'}} /> 
             }
         </form>
           <p><NavLink to='/'>Already Have an account ?</NavLink></p>        

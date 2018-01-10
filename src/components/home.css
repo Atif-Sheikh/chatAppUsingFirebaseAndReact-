@@ -18,12 +18,13 @@
 }
 .chatBox{
     width: 300px;
-    position: relative;
+    position: fixed;
+    top: 0;
     height: 150px;
     margin-left: -100px;
     background: grey;
     overflow-y: auto;
-    margin-top: -200px;
+    margin-bottom: -200px;
 }
 .messages{
     width: 100%;
@@ -40,8 +41,9 @@
     height: 30%;
 }
 .listDiv{
+    position: relative;
     width: 250px; 
-    height: 200px;
+    height: 400px;
     overflow-y: scroll;
     scroll-behavior: inherit;
 }
@@ -50,6 +52,8 @@
     height: 50px;
     background: skyblue;
     color: white;
+    cursor: pointer;
+    margin: 5px;
 }
 .main {
     width: 100%;

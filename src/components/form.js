@@ -61,7 +61,7 @@ class Form extends Component {
   };
   render(){    
     return(
-      <Paper className='wrap' zDepth={4} rounded={false}>
+      <Paper style={{width: '350px', padding: '20px'}} className='wrap' zDepth={4} rounded={false}>
       <h1 className='heading'><img alt='' style={{width: 50, height: 50}}  src={logo} />Chat App</h1>
       <div className='formComponent'>
         <form onSubmit={this.onButtonPress.bind(this)}>
@@ -82,10 +82,10 @@ class Form extends Component {
             this.state.loading ? <DotLoader
             color={'#123abc'}
             size={20} 
-          /> : <RaisedButton label="Submit" type='submit' to='/home' primary={true} style={{margin: '10'}} /> 
+          /> : <RaisedButton label="Submit" type='submit' primary={true} style={{margin: '10px', marginLeft: '50px'}} /> 
           }
           <br /> <br />
-          <p><NavLink to='/signup'>Signup</NavLink></p>
+          <p><NavLink style={{marginLeft: '30px', fontWeight: 'bold'}} to='/signup'>Create account ?</NavLink></p>
         </form>
       </div>
     </Paper>

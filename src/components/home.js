@@ -70,13 +70,14 @@ class Home extends Component {
     render(){
         return(<div className='main'>
                 <AppBar title="Chat App" 
-                    style={{padding:'20px', borderRadius: '15px'}}
+                    style={{padding:'20px',}}
                     iconElementRight={<RaisedButton className='logoutButton' 
                     onClick={this.onClickButton.bind(this)}>Logout</RaisedButton>} 
                 />
                     <h4 className='userEmail'> User: { this.state.signInUserEmail } </h4>
+                    <b className='chats'>Chats:</b> 
                     <div className='listDiv'>
-                        <b className='chats'>Chats:</b> {
+                        {
                             this.state.users.map((user, index) => {
                                 return <ul key={index} className="list-group">
                                     <li className='list-group-item' onClick={ () => this.chatBox(index)}>
