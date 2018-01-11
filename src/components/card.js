@@ -19,6 +19,9 @@ class Card extends Component{
             currentUserName: this.props.users[this.props.index],
         };
     };
+    // componentWillReceiveProps(a){
+    //     console.log(a);
+    // };
     componentDidMount(){
         var recieverKey = this.state.recieverKey;
         var senderKey = this.state.senderKey;
@@ -36,6 +39,7 @@ class Card extends Component{
                 messages: msgs,
                 signInUserEmail, 
             });
+        this.ScrollDiv();            
         });
     };
     onChangeMessage(e){
@@ -58,7 +62,7 @@ class Card extends Component{
     };
     render(){
         return(
-                <div className="card" style={{width: "300px", height: '370px', float: 'right', marginRight: '100px', marginTop: '-215px'}}>
+                <div className="card" onMouseOver={this.ScrollDiv} style={{width: "300px", height: '370px', float: 'right', marginRight: '100px', marginTop: '-215px'}}>
                     <header style={{width: '100%', height: '30px', marginTop: '-5px', borderTopLeftRadius:'5px', borderTopRightRadius:'5px', textAlign: 'center', fontSize: '25px', background: 'rgb(37, 116, 169)'}}>{ this.state.currentUserName }</header>
                     <div style={{ background: 'skyblue', overflowY: 'auto'}} id='cardBody' className='card-body'>
                         <div style={{width: '100%'}}>
@@ -72,7 +76,7 @@ class Card extends Component{
                     </div>
                     <div className='card-text' style={{background: 'rgba(0,0,0,0.1)'}}>
                         <form onSubmit={this.onButtonPress}>
-                        <input type='text' value={this.state.currentMessage} onKeyUp={this.ScrollDiv} onMouseOver={this.ScrollDiv} onChange={this.onChangeMessage} style={{width: '70%', height: '38px', background: 'rgba(0,0,0,0.3)', borderRadius: '5px'}} className='form-control"' placeholder='Enter Your Message...' />
+                        <input type='text' value={this.state.currentMessage} onKeyUp={this.ScrollDiv} onChange={this.onChangeMessage} style={{width: '70%', height: '38px', background: 'rgba(0,0,0,0.3)'}} className='form-control"' placeholder='Enter Your Message...' />
                         <button style={{width: '30%', marginTop: '-5px', marginLeft: '0px'}} type='submit' className='btn btn-primary'>Send.</button>
                         </form>
                     </div>
