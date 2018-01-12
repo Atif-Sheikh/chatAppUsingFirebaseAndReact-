@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 class Card extends Component{
     constructor(props){
         super(props);
-        this.db = firebase.database().ref().child(`Users`);
+        // this.db = firebase.database().ref().child(`Users`);
         this.onChangeMessage = this.onChangeMessage.bind(this);
         this.onButtonPress= this.onButtonPress.bind(this);
         this.ScrollDiv = this.ScrollDiv.bind(this);
@@ -13,19 +13,20 @@ class Card extends Component{
             recieverMsgs: [],
             currentMessage: '',
             senderUserEmail: '',
-            recieverKey: this.props.currentUser,
-            senderKey: this.props.signInUserKey,
+            recieverKey: '',
+            senderKey: '',
             keys: [],
-            currentUserName: this.props.users[this.props.index],
+            currentUserName: '',
         };
     };
     // componentWillReceiveProps(a){
     //     console.log(a);
     // };
-    componentDidMount(){
-        var recieverKey = this.state.recieverKey;
-        var senderKey = this.state.senderKey;
-        var signInUserEmail = this.props.signInUserEmail;
+    componentWillReceiveProps(props){
+        var recieverKey = props.curentKey;
+        var senderKey = props.signInUserKey;
+        var signInUserEmail = props.signInUserEmail;
+        var currentUserName = props.currentUser;
         firebase.database().ref().child(`Users/${senderKey}/${recieverKey}`).on(('value'), snap => {
             var obj = snap.val();
             var currentMsg = '';
@@ -33,13 +34,16 @@ class Card extends Component{
             for(let key in obj){
                     currentMsg = obj[key];
                     msgs.push(currentMsg);
-                    console.log('surrent',currentMsg);
+                    // console.log('surrent',currentMsg);
             }
             this.setState({
                 messages: msgs,
-                signInUserEmail, 
+                signInUserEmail,
+                recieverKey,
+                senderKey,
+                currentUserName, 
             });
-        this.ScrollDiv();            
+            this.ScrollDiv();                        
         });
     };
     onChangeMessage(e){
@@ -55,6 +59,9 @@ class Card extends Component{
             if(currentMessage !== ''){
                 firebase.database().ref(`Users/${senderKey}/`).child(recieverKey).push({currentMessage, signInUserEmail});
                 firebase.database().ref(`Users/${recieverKey}/`).child(senderKey).push({currentMessage, signInUserEmail});
+            }
+            else{
+                alert('type Something!');
             }       
             this.setState({
                 currentMessage: '',

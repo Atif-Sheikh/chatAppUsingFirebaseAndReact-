@@ -62,10 +62,10 @@ class Home extends Component {
         this.setState({
             index: index,
             currentUser: current,
-            chatBox: !this.state.chatBox,
             currentKey: this.state.uids[index],
+            chatBox: true,
         });
-        console.log('currentUID', this.state.uids[index]);
+        // console.log(this.state.currentUser, ':current', this.state.currentKey, ':key');
     };
     render(){
         return(<div className='main'>
@@ -91,8 +91,8 @@ class Home extends Component {
                                                  curentKey={this.state.currentKey} 
                                                  index={this.state.index}
                                                  users={this.state.users} 
-                                                 currentUser={this.state.currentKey}
-                                                 signInUserEmail={this.state.signInUserEmail}/> : 
+                                                 signInUserEmail={this.state.signInUserEmail}
+                                                 currentUser={this.state.currentUser}/> : 
                     '' }
                 </div>);
     }
