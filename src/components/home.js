@@ -13,12 +13,15 @@ class Home extends Component {
             loading: false,
             users: [],
             uids: [],
-            currentKey: null,
-            index: null,
+            currentKey: '',
+            index: '',
             chatBox: false,
             signInUserEmail: '',
             signInUserUid: '',
         };
+    };
+    closeButton = () => {
+        this.setState({chatBox: false});
     };
     componentDidMount(){
         var email = '';
@@ -58,16 +61,16 @@ class Home extends Component {
             });
     };
     chatBox = (index) => {
-        var current = this.state.users[index];
+        // console.log(this.state.currentUser, 'current', this.state.currentKey);
         this.setState({
             index: index,
-            currentUser: current,
+            currentUser: this.state.users[index],
             currentKey: this.state.uids[index],
             chatBox: true,
         });
-        // console.log(this.state.currentUser, ':current', this.state.currentKey, ':key');
     };
     render(){
+        console.log(this.state.signInUserEmail, 'current', this.state.currentKey);                
         return(<div className='main'>
                 <AppBar title="Chat App" 
                     style={{padding:'20px',}}
@@ -92,7 +95,8 @@ class Home extends Component {
                                                  index={this.state.index}
                                                  users={this.state.users} 
                                                  signInUserEmail={this.state.signInUserEmail}
-                                                 currentUser={this.state.currentUser}/> : 
+                                                 currentUser={this.state.currentUser}
+                                                 closeButton={this.closeButton}/> : 
                     '' }
                 </div>);
     }

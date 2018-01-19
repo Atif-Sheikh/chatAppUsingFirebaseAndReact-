@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import close from '../close.png';
 
 class Card extends Component{
     constructor(props){
@@ -23,11 +24,12 @@ class Card extends Component{
     //     console.log(a);
     // };
     componentWillReceiveProps(props){
-        var recieverKey = props.curentKey;
-        var senderKey = props.signInUserKey;
-        var signInUserEmail = props.signInUserEmail;
-        var currentUserName = props.currentUser;
-        firebase.database().ref().child(`Users/${senderKey}/${recieverKey}`).on(('value'), snap => {
+        console.log(props);
+        // var recieverKey = this.props.curentKey;
+        // var senderKey = this.props.signInUserKey;
+        // var signInUserEmail = this.props.signInUserEmail;
+        // var currentUserName = this.props.currentUser;
+        firebase.database().ref().child(`Users/${props.signInUserKey}/${props.curentKey}`).on(('value'), snap => {
             var obj = snap.val();
             var currentMsg = '';
             var msgs = [];
@@ -38,10 +40,10 @@ class Card extends Component{
             }
             this.setState({
                 messages: msgs,
-                signInUserEmail,
-                recieverKey,
-                senderKey,
-                currentUserName, 
+                // signInUserEmail,
+                // recieverKey,
+                // senderKey,
+                // currentUserName, 
             });
             this.ScrollDiv();                        
         });
@@ -54,37 +56,39 @@ class Card extends Component{
      };     
     onButtonPress(e){
         e.preventDefault();
-        const { currentMessage, recieverKey, senderKey, signInUserEmail } = this.state;
-        console.log('reciever: ', recieverKey, 'Sender: ', signInUserEmail);
-            if(currentMessage !== ''){
-                firebase.database().ref(`Users/${senderKey}/`).child(recieverKey).push({currentMessage, signInUserEmail});
-                firebase.database().ref(`Users/${recieverKey}/`).child(senderKey).push({currentMessage, signInUserEmail});
+        let signInUserEmail = this.props.signInUserEmail;
+        const { currentMessage } = this.state;
+        console.log('reciever: ', this.props.curentKey, 'Sender: ', this.props.signInUserKey, signInUserEmail);
+            if(currentMessage !== '' && signInUserEmail){
+                firebase.database().ref(`Users/${this.props.signInUserKey}/`).child(this.props.curentKey).push({currentMessage, signInUserEmail});
+                firebase.database().ref(`Users/${this.props.curentKey}/`).child(this.props.signInUserKey).push({currentMessage, signInUserEmail});
             }
             else{
-                alert('type Something!');
+                alert('Error');
             }       
             this.setState({
                 currentMessage: '',
             });
     };
     render(){
+        // console.log(this.props);
         return(
-                <div className="card" onMouseOver={this.ScrollDiv} style={{width: "300px", height: '370px', float: 'right', marginRight: '100px', marginTop: '-215px'}}>
-                    <header style={{width: '100%', height: '30px', marginTop: '-5px', borderTopLeftRadius:'5px', borderTopRightRadius:'5px', textAlign: 'center', fontSize: '25px', background: 'rgb(37, 116, 169)'}}>{ this.state.currentUserName }</header>
+                <div className="card" onMouseOver={this.ScrollDiv} style={{width: "70%", height: '80%', float: 'right',position: 'absolute', left:'300px' ,bottom: '5px'}}>
+                    <header style={{paddingLeft: '20px', width: '100%', height: '60px', marginTop: '-5px', borderTopLeftRadius:'5px', borderTopRightRadius:'5px', textAlign: 'Left', fontSize: '40px', background: 'rgb(37, 116, 169)'}}>{ this.props.currentUser }<span><img onClick={this.props.closeButton} style={{width: '40px', height:'40px', float: 'right', marginRight: '20px', marginTop: '10px', cursor: 'pointer'}} alt='close' src={close} /></span></header>
                     <div style={{ background: 'skyblue', overflowY: 'auto'}} id='cardBody' className='card-body'>
                         <div style={{width: '100%'}}>
                             {
                             this.state.messages.map((msg,index)=>{
-                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', padding: '5px', width: '130px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
-                                : <p key={index} style={{color: 'white' , float: 'left', borderRadius: '5px', padding: '5px', width: '130px', background: 'rgba(0,0,0,0.5)'}}>{ msg.currentMessage }</p>
+                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{lineHeight: '40px', minHeight: '50px', color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', padding: '5px', width: '550px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
+                                : <p key={index} style={{color: 'white', lineHeight: '40px', minHeight: '50px', float: 'left', borderRadius: '5px', padding: '5px', width: '550px', background: 'rgba(0,0,0,0.5)'}}>{ msg.currentMessage }</p>
                             })
                         }
                         </div>
                     </div>
                     <div className='card-text' style={{background: 'rgba(0,0,0,0.1)'}}>
                         <form onSubmit={this.onButtonPress}>
-                        <input type='text' value={this.state.currentMessage} onKeyUp={this.ScrollDiv} onChange={this.onChangeMessage} style={{width: '70%', height: '38px', background: 'rgba(0,0,0,0.3)'}} className='form-control"' placeholder='Enter Your Message...' />
-                        <button style={{width: '30%', marginTop: '-5px', marginLeft: '0px'}} type='submit' className='btn btn-primary'>Send.</button>
+                        <input type='text' value={this.state.currentMessage} onKeyUp={this.ScrollDiv} onChange={this.onChangeMessage} style={{width: '70%', height: '65px', background: 'white', borderRadius: '5px'}} className='form-control"' placeholder='Enter Your Message...' />
+                        <button style={{width: '30%', height: '65px', marginTop: '-1px', marginLeft: '0px'}} type='submit' className='btn btn-primary'>Send.</button>
                         </form>
                     </div>
                 </div>
