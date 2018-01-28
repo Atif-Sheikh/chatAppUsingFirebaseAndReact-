@@ -79,7 +79,7 @@ class Card extends Component{
                         <div style={{width: '100%'}}>
                             {
                             this.state.messages.map((msg,index)=>{
-                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{lineHeight: '40px', minHeight: '50px', color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', padding: '5px', width: '550px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
+                                return msg.signInUserEmail === this.props.signInUserEmail ? <p style={{lineHeight: '40px', minHeight: '50px', color: 'white', float: 'right', marginTop: '2px', borderRadius: '5px', width: '550px', padding: '5px', maxWidth: 'auto', right: '0px', background: 'rgba(0,0,0,0.4)'}} key={index}>{msg.currentMessage}</p>
                                 : <p key={index} style={{color: 'white', lineHeight: '40px', minHeight: '50px', float: 'left', borderRadius: '5px', padding: '5px', width: '550px', background: 'rgba(0,0,0,0.5)'}}>{ msg.currentMessage }</p>
                             })
                         }
